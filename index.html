@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Languages Trends 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --background: #f1f5f9;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: 
+                radial-gradient(circle at 30% 40%, #86efac 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, #93c5fd 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #86efac 0%, #93c5fd 100%);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .highlight-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .stat-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            line-height: 1.2;
+        }
+
+        .highlight-card {
+            background: linear-gradient(to right bottom, var(--primary), var(--secondary));
+        }
+
+        .highlight-card h3,
+        .highlight-card .stat-value,
+        .highlight-card .stat-subtitle {
+            color: white;
+        }
+
+        .intro-section {
+            background: linear-gradient(120deg, #fdf2f8, #f0f9ff, #ecfdf5);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .intro-content h2 {
+            font-size: 1.75rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            background: linear-gradient(to right, #3b82f6, #22c55e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro-overview {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.1), transparent);
+            border-radius: 8px;
+        }
+
+        .intro-highlight {
+            color: var(--text);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .intro-block {
+            margin-bottom: 2rem;
+        }
+
+        .intro-block h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .intro-block p {
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .intro-list {
+            list-style: none;
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .intro-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .intro-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .highlight-list li {
+            background: rgba(37, 99, 235, 0.05);
+            padding: 0.75rem 1rem 0.75rem 2rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-list li::before {
+            left: 0.5rem;
+        }
+
+        .intro-notes {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .note-item {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .note-item::before {
+            content: "*";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .intro-section {
+                padding: 1.5rem;
+            }
+
+            .intro-overview {
+                padding: 1rem;
+            }
+
+            .intro-highlight {
+                font-size: 1rem;
+            }
+
+            .intro-block h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .filter-btn:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .quick-search {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .search-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem 0;
+        }
+
+        .search-wrapper input {
+            padding: 1.2rem 1.5rem;
+            font-size: 1.2rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-shortcuts {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .shortcut-tag {
+            padding: 0.5rem 1.2rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 25px;
+            font-size: 1rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .shortcut-tag:hover {
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .intro-section {
+                padding: 1.5rem;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .search-shortcuts {
+                justify-content: center;
+            }
+        }
+
+        .chart-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .charts-overview {
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .chart-tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .chart-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .chart-tab.active {
+            color: var(--primary);
+        }
+
+        .chart-tab.active::after {
+            transform: scaleX(1);
+        }
+
+        .chart-views {
+            position: relative;
+            min-height: 500px;
+        }
+
+        .chart-view {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .chart-view.active {
+            display: block;
+        }
+
+        .chart-header {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .chart-header h3 {
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-description {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .chart-container {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            height: 400px;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-insights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .insight-card {
+            background: rgba(37, 99, 235, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .insight-card h4 {
+            color: var(--primary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-card p {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .chart-tabs {
+                flex-wrap: wrap;
+            }
+
+            .chart-tab {
+                flex: 1 1 auto;
+                text-align: center;
+                padding: 0.5rem 1rem;
+            }
+
+            .chart-insights {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .language-list {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: var(--surface);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .language-item:last-child {
+            border-bottom: none;
+        }
+
+        .language-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rank {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            min-width: 2rem;
+        }
+
+        .rating {
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .trend {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .trend.positive {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .trend.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Programming Language Trends</h1>
+            <p>TIOBE Index Analysis - October 2025</p>
+        </div>
+
+        <div class="intro-section">
+            <div class="intro-content">
+                <h2>Tentang TIOBE Programming Index</h2>
+                <div class="intro-overview">
+                    <p class="intro-highlight">TIOBE Programming Community Index adalah standar industri yang telah mapan untuk mengukur dan melacak popularitas bahasa pemrograman di seluruh dunia sejak tahun 2001.</p>
+                </div>
+
+                <div class="intro-block">
+                    <h3>Apa itu TIOBE Index?</h3>
+                    <p>TIOBE Index adalah indikator yang menunjukkan popularitas relatif berbagai bahasa pemrograman. Index ini diperbarui setiap bulan dan menjadi referensi penting bagi para profesional IT, perusahaan, dan institusi pendidikan dalam membuat keputusan strategis terkait teknologi.</p>
+                </div>
+
+                <div class="intro-block">
+                    <h3>Metodologi Pengumpulan Data</h3>
+                    <p>Rating dalam TIOBE Index dihitung berdasarkan analisis komprehensif dari berbagai sumber:</p>
+                    <ul class="intro-list">
+                        <li>Data dari 25+ mesin pencari terkemuka (Google, Bing, Yahoo!, Wikipedia, Amazon, YouTube, dll)</li>
+                        <li>Analisis komunitas pengembang global aktif</li>
+                        <li>Jumlah insinyur perangkat lunak terampil di seluruh dunia</li>
+                        <li>Jumlah kursus dan pelatihan yang tersedia</li>
+                        <li>Distribusi vendor dan penyedia layanan third-party</li>
+                    </ul>
+                </div>
+
+                <div class="intro-block">
+                    <h3>Manfaat dan Penggunaan</h3>
+                    <p>Index ini dapat digunakan untuk berbagai tujuan strategis:</p>
+                    <ul class="intro-list highlight-list">
+                        <li><strong>Keputusan Strategis:</strong> Membantu organisasi memilih bahasa pemrograman untuk proyek baru</li>
+                        <li><strong>Pengembangan Karir:</strong> Panduan bagi programmer untuk memperbarui keterampilan mereka</li>
+                        <li><strong>Tren Teknologi:</strong> Memahami pergeseran tren dalam industri software</li>
+                        <li><strong>Perencanaan Kurikulum:</strong> Membantu institusi pendidikan merancang program pembelajaran</li>
+                    </ul>
+                </div>
+
+                <div class="intro-block">
+                    <h3>Interpretasi Rating</h3>
+                    <p>Rating dalam index menunjukkan:</p>
+                    <ul class="intro-list">
+                        <li>Persentase waktu yang dihabiskan engineer dalam bahasa tersebut</li>
+                        <li>Popularitas relatif dibandingkan bahasa pemrograman lain</li>
+                        <li>Ketersediaan sumber daya dan dukungan komunitas</li>
+                        <li>Tingkat adopsi di industri</li>
+                    </ul>
+                </div>
+
+                <div class="intro-notes">
+                    <p class="note-item">* Rating menunjukkan persentase popularitas relatif bahasa pemrograman</p>
+                    <p class="note-item">* Index diperbarui setiap bulan untuk mencerminkan perubahan tren terkini</p>
+                    <p class="note-item">* Perubahan rating menunjukkan dinamika popularitas bahasa pemrograman</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <div class="quick-filters">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="top10">Top 10</button>
+                <button class="filter-btn" data-filter="trending">Trending</button>
+                <button class="filter-btn" data-filter="newcomers">Pendatang Baru</button>
+            </div>
+            <div class="quick-search">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Cari bahasa pemrograman...">
+                    <div class="search-shortcuts">
+                        <span class="shortcut-tag" data-lang="Python">Python</span>
+                        <span class="shortcut-tag" data-lang="Java">Java</span>
+                        <span class="shortcut-tag" data-lang="JavaScript">JavaScript</span>
+                        <span class="shortcut-tag" data-lang="C++">C++</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Most Popular</h3>
+                    <div class="stat-value" id="topLang">Python</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Mean (Rata-rata)</h3>
+                    <div class="stat-value" id="meanRating">0%</div>
+                    <div class="stat-subtitle">Rata-rata dari semua rating</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Mode (Modus)</h3>
+                    <div class="stat-value" id="modeRating">0%</div>
+                    <div class="stat-subtitle">Nilai yang paling sering muncul</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Median (Nilai Tengah)</h3>
+                    <div class="stat-value" id="medianRating">0%</div>
+                    <div class="stat-subtitle">Nilai tengah dari data</div>
+                </div>
+                <div class="stat-card highlight-card">
+                    <h3>Standar Deviasi</h3>
+                    <div class="stat-value" id="stdDev">0%</div>
+                    <div class="stat-subtitle">Simpangan baku dari data</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Languages</h3>
+                    <div class="stat-value">100</div>
+                    <div class="stat-subtitle">Jumlah bahasa yang dianalisis</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-overview">
+            <div class="chart-tabs">
+                <button class="chart-tab active" data-chart="top10">Top 10 Languages</button>
+                <button class="chart-tab" data-chart="trending">Trending Languages</button>
+                <button class="chart-tab" data-chart="newcomers">Rising Stars</button>
+            </div>
+
+            <div class="chart-views">
+                <div class="chart-view active" id="top10-view">
+                    <div class="chart-header">
+                        <h3>Top 10 Programming Languages</h3>
+                        <p class="chart-description">Bahasa pemrograman dengan rating tertinggi berdasarkan TIOBE Index</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="top10Chart"></canvas>
+                    </div>
+                    <div class="chart-insights">
+                        <div class="insight-card">
+                            <h4>Market Leader</h4>
+                            <p id="topLanguageInsight">-</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>Market Share</h4>
+                            <p id="marketShareInsight">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-view" id="trending-view">
+                    <div class="chart-header">
+                        <h3>Trending Languages</h3>
+                        <p class="chart-description">Bahasa pemrograman dengan pertumbuhan tertinggi dalam 12 bulan terakhir</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="trendingChart"></canvas>
+                    </div>
+                    <div class="chart-insights">
+                        <div class="insight-card">
+                            <h4>Fastest Growing</h4>
+                            <p id="fastestGrowingInsight">-</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>Growth Rate</h4>
+                            <p id="growthRateInsight">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-view" id="newcomers-view">
+                    <div class="chart-header">
+                        <h3>Rising Stars</h3>
+                        <p class="chart-description">Bahasa pemrograman baru dengan pertumbuhan positif</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="newcomersChart"></canvas>
+                    </div>
+                    <div class="chart-insights">
+                        <div class="insight-card">
+                            <h4>Most Promising</h4>
+                            <p id="promisingInsight">-</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>Potential Impact</h4>
+                            <p id="impactInsight">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="languageListContainer">
+                <!-- Languages will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configure Chart.js defaults
+        Chart.defaults.font.family = 'Inter';
+        Chart.defaults.color = '#64748b';
+        Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.1)';
+        Chart.defaults.plugins.tooltip.backgroundColor = '#1e293b';
+        Chart.defaults.plugins.legend.display = false;
+
+        // Data from TIOBE Index October 2025
+        const programmingLanguages = [
+            { rank: 1, name: "Python", rating: 24.45, change: "+2.55" },
+            { rank: 2, name: "C", rating: 9.29, change: "+0.91" },
+            { rank: 3, name: "C++", rating: 8.84, change: "-2.77" },
+            { rank: 4, name: "Java", rating: 8.35, change: "-2.15" },
+            { rank: 5, name: "C#", rating: 6.94, change: "+1.32" },
+            { rank: 6, name: "JavaScript", rating: 3.41, change: "-0.13" },
+            { rank: 7, name: "Visual Basic", rating: 3.22, change: "+0.87" },
+            { rank: 8, name: "Go", rating: 1.92, change: "-0.10" },
+            { rank: 9, name: "Delphi/Object Pascal", rating: 1.86, change: "+0.19" },
+            { rank: 10, name: "SQL", rating: 1.77, change: "+0.13" },
+            { rank: 11, name: "Fortran", rating: 1.70, change: "-0.10" },
+            { rank: 12, name: "Perl", rating: 1.66, change: "+1.10" },
+            { rank: 13, name: "R", rating: 1.52, change: "+0.43" },
+            { rank: 14, name: "PHP", rating: 1.38, change: "+0.17" },
+            { rank: 15, name: "Assembly language", rating: 1.20, change: "+0.07" },
+            { rank: 16, name: "Rust", rating: 1.19, change: "-0.25" },
+            { rank: 17, name: "MATLAB", rating: 1.16, change: "-0.32" },
+            { rank: 18, name: "Scratch", rating: 1.15, change: "-0.26" },
+            { rank: 19, name: "Ada", rating: 0.98, change: "+0.25" },
+            { rank: 20, name: "Kotlin", rating: 0.98, change: "+0.01" },
+            { rank: 21, name: "Classic Visual Basic", rating: 0.97, change: "0" },
+            { rank: 22, name: "Swift", rating: 0.94, change: "0" },
+            { rank: 23, name: "COBOL", rating: 0.86, change: "0" },
+            { rank: 24, name: "Prolog", rating: 0.80, change: "0" },
+            { rank: 25, name: "Ruby", rating: 0.77, change: "0" },
+            { rank: 26, name: "SAS", rating: 0.65, change: "0" },
+            { rank: 27, name: "Dart", rating: 0.62, change: "0" },
+            { rank: 28, name: "Lisp", rating: 0.55, change: "0" },
+            { rank: 29, name: "(Visual) FoxPro", rating: 0.47, change: "0" },
+            { rank: 30, name: "Julia", rating: 0.46, change: "0" },
+           
+        ];
+
+        // Statistical calculations and display
+        function calculateAndDisplayStatistics() {
+            const ratings = programmingLanguages.map(lang => lang.rating);
+            
+            // Calculate statistics
+            const mean = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+            const sortedRatings = [...ratings].sort((a, b) => a - b);
+            const mid = Math.floor(sortedRatings.length / 2);
+            const median = sortedRatings.length % 2 === 0
+                ? (sortedRatings[mid - 1] + sortedRatings[mid]) / 2
+                : sortedRatings[mid];
+            const variance = ratings.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / ratings.length;
+            const stdDev = Math.sqrt(variance);
+
+            // Update stat cards
+            document.getElementById('mean').textContent = mean.toFixed(2);
+            document.getElementById('median').textContent = median.toFixed(2);
+            document.getElementById('stdDev').textContent = stdDev.toFixed(2);
+        }
+
+        // Create top languages chart
+        function createTopLanguagesChart() {
+            const top10 = programmingLanguages.slice(0, 10);
+            const ctx = document.getElementById('topLanguagesChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top10.map(lang => lang.name),
+                    datasets: [{
+                        label: 'Rating (%)',
+                        data: top10.map(lang => lang.rating),
+                        backgroundColor: '#4361ee',
+                        borderColor: '#3f37c9',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Rating (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create distribution chart
+        function createDistributionChart() {
+            const ctx = document.getElementById('distributionChart').getContext('2d');
+            const ranges = ['0-1%', '1-5%', '5-10%', '10-15%', '15-25%'];
+            const distribution = [
+                programmingLanguages.filter(lang => lang.rating < 1).length,
+                programmingLanguages.filter(lang => lang.rating >= 1 && lang.rating < 5).length,
+                programmingLanguages.filter(lang => lang.rating >= 5 && lang.rating < 10).length,
+                programmingLanguages.filter(lang => lang.rating >= 10 && lang.rating < 15).length,
+                programmingLanguages.filter(lang => lang.rating >= 15).length
+            ];
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ranges,
+                    datasets: [{
+                        data: distribution,
+                        backgroundColor: [
+                            '#4361ee',
+                            '#3f37c9',
+                            '#4895ef',
+                            '#4cc9f0',
+                            '#560bad'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create changes chart
+        function createChangesChart() {
+            const ctx = document.getElementById('changesChart').getContext('2d');
+            const top10Changes = programmingLanguages.slice(0, 10);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top10Changes.map(lang => lang.name),
+                    datasets: [{
+                        label: 'Change (%)',
+                        data: top10Changes.map(lang => parseFloat(lang.change)),
+                        backgroundColor: top10Changes.map(lang => 
+                            parseFloat(lang.change) >= 0 ? '#4cc9f0' : '#ef476f'
+                        )
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Change (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Populate language grid
+        function populateLanguageGrid(languages = programmingLanguages) {
+            const container = document.getElementById('languageList');
+            container.innerHTML = '';
+            
+            languages.forEach(lang => {
+                const card = document.createElement('div');
+                card.className = 'language-card';
+                card.innerHTML = `
+                    <div class="language-info">
+                        <h4>${lang.name}</h4>
+                        <small>Rank: ${lang.rank}</small>
+                    </div>
+                    <div class="language-rating">${lang.rating}%</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredLanguages = programmingLanguages.filter(lang => 
+                lang.name.toLowerCase().includes(searchTerm)
+            );
+            populateLanguageGrid(filteredLanguages);
+        });
+
+        // Calculate statistics
+        function calculateStatistics() {
+            const ratings = programmingLanguages.map(lang => lang.rating);
+            
+            // Calculate mean (rata-rata)
+            const mean = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+            
+            // Calculate median (nilai tengah)
+            const sortedRatings = [...ratings].sort((a, b) => a - b);
+            const median = sortedRatings.length % 2 === 0
+                ? (sortedRatings[sortedRatings.length / 2 - 1] + sortedRatings[sortedRatings.length / 2]) / 2
+                : sortedRatings[Math.floor(sortedRatings.length / 2)];
+            
+            // Calculate mode (modus)
+            const frequency = {};
+            let maxFreq = 0;
+            let mode = ratings[0];
+            
+            ratings.forEach(rating => {
+                frequency[rating] = (frequency[rating] || 0) + 1;
+                if (frequency[rating] > maxFreq) {
+                    maxFreq = frequency[rating];
+                    mode = rating;
+                }
+            });
+            
+            // Calculate standard deviation (simpangan baku)
+            const variance = ratings.reduce((sum, rating) => sum + Math.pow(rating - mean, 2), 0) / ratings.length;
+            const standardDeviation = Math.sqrt(variance);
+            
+            return {
+                mean,
+                median,
+                mode,
+                standardDeviation
+            };
+        }
+
+        // Update highlights section
+        function updateHighlights() {
+            const topLanguage = programmingLanguages[0];
+            const stats = calculateStatistics();
+            
+            document.getElementById('topLang').textContent = topLanguage.name;
+            document.getElementById('meanRating').textContent = `${stats.mean.toFixed(2)}%`;
+            document.getElementById('medianRating').textContent = `${stats.median.toFixed(2)}%`;
+            document.getElementById('modeRating').textContent = `${stats.mode.toFixed(2)}%`;
+            document.getElementById('stdDev').textContent = `${stats.standardDeviation.toFixed(2)}%`;
+        }
+
+        // Create main chart with enhanced visuals
+        function createMainChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            const top10 = programmingLanguages.slice(0, 10);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top10.map(lang => lang.name),
+                    datasets: [{
+                        data: top10.map(lang => lang.rating),
+                        backgroundColor: top10.map(() => 'rgba(37, 99, 235, 0.8)'),
+                        borderRadius: 6,
+                        maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `Rating: ${context.raw}%`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Populate language list with improved layout
+        function populateLanguageList(languages = programmingLanguages) {
+            const container = document.getElementById('languageListContainer');
+            container.innerHTML = '';
+            
+            languages.forEach(lang => {
+                const item = document.createElement('div');
+                item.className = 'language-item';
+                const changeClass = parseFloat(lang.change) >= 0 ? 'positive' : 'negative';
+                
+                item.innerHTML = `
+                    <div class="language-name">
+                        <span class="rank">#${lang.rank}</span>
+                        <span>${lang.name}</span>
+                    </div>
+                    <div class="rating">
+                        ${lang.rating}%
+                        <span class="trend ${changeClass}">${lang.change}%</span>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Filter functions
+        function filterLanguages(filterType) {
+            let filteredLangs;
+            switch(filterType) {
+                case 'top10':
+                    filteredLangs = programmingLanguages.slice(0, 30);
+                    break;
+                case 'trending':
+                    filteredLangs = [...programmingLanguages]
+                        .sort((a, b) => parseFloat(b.change) - parseFloat(a.change))
+                        .slice(0, 30);
+                    break;
+                case 'newcomers':
+                    filteredLangs = programmingLanguages.filter(lang => 
+                        parseFloat(lang.change) > 0
+                    );
+                    break;
+                default:
+                    filteredLangs = programmingLanguages;
+            }
+            return filteredLangs;
+        }
+
+        // Handle filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+
+                // Apply filter
+                const filterType = e.target.dataset.filter;
+                const filteredLangs = filterLanguages(filterType);
+                populateLanguageList(filteredLangs);
+                
+                // Update chart if needed
+                if (filterType === 'top10' || filterType === 'all') {
+                    createMainChart();
+                }
+            });
+        });
+
+        // Handle shortcut tags
+        document.querySelectorAll('.shortcut-tag').forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                const langName = e.target.dataset.lang;
+                document.getElementById('searchInput').value = langName;
+                const filteredLangs = programmingLanguages.filter(lang => 
+                    lang.name.toLowerCase().includes(langName.toLowerCase())
+                );
+                populateLanguageList(filteredLangs);
+            });
+        });
+
+        // Enhanced search functionality with debouncing
+        const searchInput = document.getElementById('searchInput');
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredLanguages = programmingLanguages.filter(lang => 
+                    lang.name.toLowerCase().includes(searchTerm)
+                );
+                populateLanguageList(filteredLanguages);
+                
+                // Reset active filter button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector('[data-filter="all"]').classList.add('active');
+            }, 300);
+        });
+
+        // Create Top 10 chart
+        function createTop10Chart() {
+            const ctx = document.getElementById('top10Chart').getContext('2d');
+            const top30 = programmingLanguages.slice(0, 30);
+            const totalShare = top30.reduce((sum, lang) => sum + lang.rating, 0);
+
+            // Destroy existing chart if present
+            if (window.top10Chart) {
+                try { window.top10Chart.destroy(); } catch (err) { /* ignore */ }
+            }
+
+            // Save chart instance so it can be updated later (e.g. on search)
+            window.top10Chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top30.map(lang => lang.name),
+                    datasets: [{
+                        data: top30.map(lang => lang.rating),
+                        backgroundColor: top30.map((_, i) => `hsla(${220 + i * 20}, 80%, 60%, 0.8)`),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Rating (%)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update insights
+            document.getElementById('topLanguageInsight').textContent = 
+                `${top30[0].name} (${top30[0].rating}%)`;
+            document.getElementById('marketShareInsight').textContent = 
+                `${totalShare.toFixed(1)}% dari total market`;
+        }
+
+        // Create Trending chart
+        function createTrendingChart() {
+            const ctx = document.getElementById('trendingChart').getContext('2d');
+            const trending = [...programmingLanguages]
+                .sort((a, b) => parseFloat(b.change) - parseFloat(a.change))
+                    .slice(0, 30);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: trending.map(lang => lang.name),
+                    datasets: [{
+                        data: trending.map(lang => parseFloat(lang.change)),
+                        backgroundColor: trending.map(lang => 
+                            parseFloat(lang.change) >= 0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)'
+                        ),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Change (%)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update insights
+            document.getElementById('fastestGrowingInsight').textContent = 
+                `${trending[0].name} (+${trending[0].change}%)`;
+            document.getElementById('growthRateInsight').textContent = 
+                `${trending.length} bahasa dengan pertumbuhan positif`;
+        }
+
+        // Create Newcomers chart
+        function createNewcomersChart() {
+            const ctx = document.getElementById('newcomersChart').getContext('2d');
+            const newcomers = programmingLanguages
+                .filter(lang => parseFloat(lang.change) > 0)
+                .sort((a, b) => parseFloat(b.change) - parseFloat(a.change))
+                    .slice(0, 30);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: newcomers.map(lang => lang.name),
+                    datasets: [{
+                        data: newcomers.map(lang => parseFloat(lang.change)),
+                        backgroundColor: 'rgba(34, 197, 94, 0.8)',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Growth (%)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update insights
+            document.getElementById('promisingInsight').textContent = 
+                `${newcomers[0].name} (+${newcomers[0].change}%)`;
+            document.getElementById('impactInsight').textContent = 
+                `Potensial mengubah landscape di 2026`;
+        }
+
+        // Handle chart tab switching
+        document.querySelectorAll('.chart-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                // Update active tab
+                document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+
+                // Update active view
+                const viewId = `${e.target.dataset.chart}-view`;
+                document.querySelectorAll('.chart-view').forEach(view => view.classList.remove('active'));
+                document.getElementById(viewId).classList.add('active');
+
+                // Create/update appropriate chart
+                switch(e.target.dataset.chart) {
+                    case 'top10':
+                        createTop10Chart();
+                        break;
+                    case 'trending':
+                        createTrendingChart();
+                        break;
+                    case 'newcomers':
+                        createNewcomersChart();
+                        break;
+                }
+            });
+        });
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateHighlights();
+            createTop10Chart();
+            populateLanguageList();
+
+               // Enhanced Search functionality with Enter key
+               const searchInput = document.getElementById('searchInput');
+               searchInput.addEventListener('keydown', (e) => {
+                   if (e.key === 'Enter') {
+                       e.preventDefault();
+                       const searchTerm = searchInput.value.toLowerCase();
+                   
+                       // Filter languages based on search term
+                       const filteredLanguages = programmingLanguages.filter(lang => 
+                           lang.name.toLowerCase().includes(searchTerm)
+                       );
+                   
+                       if (filteredLanguages.length > 0) {
+                           // Update existing Top10 chart instance if available
+                           const chartData = filteredLanguages.slice(0, 30);
+                           if (window.top10Chart) {
+                               window.top10Chart.data.labels = chartData.map(l => l.name);
+                               window.top10Chart.data.datasets[0].data = chartData.map(l => l.rating);
+                               // update colors to keep consistent look
+                               window.top10Chart.data.datasets[0].backgroundColor = chartData.map((_, i) => `hsla(${220 + i * 20}, 80%, 60%, 0.8)`);
+                               window.top10Chart.update();
+                           } else {
+                               // fallback: recreate top10 chart with filtered data
+                               const ctx = document.getElementById('top10Chart').getContext('2d');
+                               window.top10Chart = new Chart(ctx, {
+                                   type: 'bar',
+                                   data: {
+                                       labels: chartData.map(lang => lang.name),
+                                       datasets: [{
+                                           data: chartData.map(lang => lang.rating),
+                                           backgroundColor: chartData.map((_, i) => `hsla(${220 + i * 20}, 80%, 60%, 0.8)`),
+                                           borderRadius: 6
+                                       }]
+                                   },
+                                   options: {
+                                       responsive: true,
+                                       maintainAspectRatio: false
+                                   }
+                               });
+                           }
+
+                           // Update insights
+                           const totalShare = filteredLanguages.reduce((sum, lang) => sum + lang.rating, 0);
+                           document.getElementById('topLanguageInsight').textContent = `${filteredLanguages[0].name} (${filteredLanguages[0].rating}%)`;
+                           document.getElementById('marketShareInsight').textContent = `${totalShare.toFixed(1)}% dari total market`;
+                       }
+
+                       // Update language list
+                       populateLanguageList(filteredLanguages);
+                   }
+               });
+        });
+    </script>
+</body>
+</html>
